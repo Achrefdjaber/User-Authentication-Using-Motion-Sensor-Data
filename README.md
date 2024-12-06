@@ -1,105 +1,129 @@
 # User Authentication Using Motion Data
 
-This repository focuses on user authentication using motion and touch gesture data from the **HMOG dataset**. By leveraging machine learning techniques, the project aims to identify users based on unique patterns in their motion data. 
+This repository presents a **machine learning-based solution** for user authentication using motion and touch gesture data from the **HMOG dataset**. By leveraging unique patterns in motion data, the system demonstrates the feasibility of accurate and reliable user identification.
 
-The project includes Python utilities for data preprocessing and manipulation, as well as a Jupyter Notebook for data splitting and model training.
+The project includes comprehensive utilities for **data preprocessing**, **feature engineering**, and **model training**, supported by visualizations for better interpretability.
 
 ---
 
 ## Table of Contents
-
 1. [Overview](#overview)
 2. [Dataset](#dataset)
 3. [Features](#features)
    - [Python Utilities](#python-utilities)
-   - [Model Training Notebook](#model-training-notebook)
+   - [Model Training Pipeline](#model-training-pipeline)
 4. [Results](#results)
 5. [Visualizations](#visualizations)
+6. [How to Use](#how-to-use)
+7. [Future Work](#future-work)
 
 ---
 
 ## Overview
 
-Motion and touch data are highly individualistic, making them effective for user authentication. This project uses the **HMOG dataset** (Hand Movement, Orientation, and Grasp) to create a pipeline for extracting, transforming, and analyzing this data. The ultimate goal is to build a machine learning model capable of accurately authenticating users based on motion data.
+Motion and touch data are inherently individualistic, making them a valuable resource for user authentication. This project focuses on developing a robust pipeline to preprocess, analyze, and model motion and touch data, ensuring reliable user identification.
+
+The **HMOG dataset** serves as the backbone of this project, featuring detailed motion sensor readings and touch gesture logs. The machine learning pipeline incorporates advanced techniques to handle data imbalance, generate features, and build models tailored for authentication tasks.
 
 ---
 
 ## Dataset
 
-The **HMOG dataset** contains data collected from mobile device sensors, including:
+The **HMOG dataset** provides rich motion and gesture data collected via mobile device sensors, including:
 - **Motion Data**: Accelerometer, gyroscope, and magnetometer readings.
-- **Touch Gesture Data**: Touchscreen interaction logs, such as swipe gestures.
+- **Touch Gesture Data**: Logs of user interaction with the touchscreen (e.g., swipe gestures).
 
 ### Key Details:
-- The dataset includes data from multiple users, structured across different sessions.
-- For this project, the model was trained on **3 users with 13 sessions each**, using a combination of motion and touch gesture data.
-- Preprocessing steps were implemented to standardize and balance the data.
-- Link to the dataset: [HMOG Dataset](https://hmog-dataset.github.io/hmog/)
+- **Data Composition**: Includes recordings from multiple users across different sessions.
+- **Subset Selection**: For this project, data from **3 users with 13 sessions each** was used.
+- **Preprocessing**: Data standardization, balancing, and slicing were implemented to ensure high-quality inputs for the model.
+
+> Access the dataset here: [HMOG Dataset](https://hmog-dataset.github.io/hmog/)
 
 ---
 
 ## Features
 
-### Python Utilities (Data Loading)
+### Python Utilities
 
-This repository includes a Python script with five key functions for processing and preparing the HMOG dataset:
+The repository offers a suite of utilities for efficient data processing:
 
-1. **`overSampling()`**:
-   - Addresses the imbalance between touch gesture logs (small in size) and motion sensor logs (larger in size).
-   - Uses oversampling to replicate touch gesture samples and balance the dataset.
+1. **`overSampling()`**  
+   - Balances motion and touch gesture data using oversampling techniques.  
+   - Addresses size disparities between different data types.  
 
-2. **`ETLHelper()`**:
-   - Acts as a helper for the ETL process (Extract, Transform, and Load).
-   - Facilitates the preprocessing pipeline for motion and gesture data.
+2. **`ETLHelper()`**  
+   - Supports the ETL pipeline for **Extracting**, **Transforming**, and **Loading** data.  
+   - Streamlines preprocessing steps for motion and gesture data.  
 
-3. **`ETL()`**:
-   - Implements the complete ETL process:
-     - **Extract**: Reads raw motion and gesture data.
-     - **Transform**: Cleans, standardizes, and formats the data.
-     - **Load**: Prepares data for machine learning tasks.
+3. **`ETL()`**  
+   - Implements the complete ETL workflow:  
+     - **Extract**: Reads raw sensor and gesture data.  
+     - **Transform**: Standardizes, cleans, and formats the data.  
+     - **Load**: Prepares datasets for model training and evaluation.  
 
-4. **`dataGenerator()`**:
-   - Generates batches of data for machine learning models.
-   - Handles large datasets efficiently by creating data slices for training and validation.
+4. **`dataGenerator()`**  
+   - Efficiently generates batches for machine learning models.  
+   - Handles large datasets through slicing and batching.  
 
-5. **`slice()`**:
-   - Splits motion data into overlapping slices for analysis.
-   - Enables feature extraction from smaller, overlapping windows of motion logs.
+5. **`slice()`**  
+   - Splits motion data into overlapping slices for detailed analysis.  
+   - Extracts features from smaller, more granular windows.  
 
-### Model Training Notebook
+---
 
-The repository also includes a **Jupyter Notebook** that:
-- Splits the processed data into training, validation, and testing sets.
-- Trains **3-channel models** for user authentication.
-- Evaluates models based on **accuracy** and **loss**.
+### Model Training Pipeline
+
+The project features a **Jupyter Notebook** designed to:
+- Split the preprocessed data into **training**, **validation**, and **testing** sets.  
+- Train **multi-channel models** to extract features from motion and gesture data.  
+- Evaluate performance based on metrics such as **accuracy**, **precision**, and **loss**.
 
 ---
 
 ## Results
 
-The model achieved **92% test accuracy** when trained on data from three users with 13 sessions each. This demonstrates the feasibility of using motion and touch gesture data for reliable user authentication.
+The machine learning pipeline achieved:
+- **92% test accuracy**: Demonstrating the effectiveness of motion and gesture data for user authentication.  
+
+### Key Observations:
+- **Data Slicing**: Smaller, overlapping slices of motion data improved feature extraction and model performance.  
+- **Balancing**: Addressing data imbalance led to consistent accuracy across different classes.  
 
 ---
 
 ## Visualizations
 
 ### Model Architecture
-Below is the architecture of the model used for user authentication:
+The model utilizes a multi-channel architecture for parallel processing of motion and touch data. The layers are optimized for feature extraction and classification.
 
-![Model Architecture](model-architecture.png)
-
-### Training Accuracy and Loss Graphs
-The training and validation performance of the model is visualized below:
-
-- **Accuracy over Epochs**:
-  ![Accuracy Graph](Accuracy_output.png)
-
-- **Loss over Epochs**:
-  ![Loss Graph](Loss_output.png)
+![Model Architecture](model-architecture.png)  
+*Figure: Multi-channel model for user authentication.*
 
 ---
 
+### Training Metrics
 
+#### Accuracy and Loss Curves
+Training and validation metrics highlight the model's learning progress:
 
+- **Accuracy Over Epochs**:  
+  ![Accuracy Graph](Accuracy_output.png)  
+  _Figure: Training vs. validation accuracy._
 
+- **Loss Over Epochs**:  
+  ![Loss Graph](Loss_output.png)  
+  _Figure: Training vs. validation loss._
 
+#### Additional Visuals
+- **Confusion Matrix**: Illustrates classification accuracy across users.  
+- **Feature Importance**: Highlights key contributors to authentication decisions (e.g., accelerometer vs. gyroscope data).  
+
+---
+
+## How to Use
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yourusername/authentication-motion.git
+   cd authentication-motion
