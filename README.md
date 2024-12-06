@@ -125,5 +125,6 @@ Training and validation metrics highlight the model's learning progress:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/authentication-motion.git
-   cd authentication-motion
+  git clone https://github.com/Achrefdjaber/User-Authentication-Using-Motion-Sensor-Data.git
+  cd User-Authentication-Using-Motion-Sensor-Data
+
